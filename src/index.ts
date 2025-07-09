@@ -41,7 +41,7 @@ async function getJsonData(endpoint:string)
  */
 async function untrackSeries(seriesId: number): Promise<void> {
   try {
-        await fetch(`${process.env.SONARR_URL}/api/v3/series/${seriesId}?deleteFiles=false`,{headers: {'X-Api-Key': process.env.SONARR_KEY}});
+        await fetch(`${process.env.SONARR_URL}/api/v3/series/${seriesId}?deleteFiles=false`,{method:"DELETE", headers: {'X-Api-Key': process.env.SONARR_KEY}});
     console.log(`✅ Untracked ${seriesId}`);
   } catch (error) {
     console.error(`❌ Failed to untrack  ${seriesId} :`, error.message);
