@@ -1,8 +1,11 @@
 import 'dotenv/config'
 import * as fs from 'fs/promises'
 import * as path from 'path'
-
-setInterval(start,parseInt(process.env.INTERVAL_SEC)*1000)
+var timer=parseInt(process.env.INTERVAL_SEC);
+if(timer>1)
+    setInterval(start,timer*1000)
+else
+    console.error("Can't have INTERVAL_SEC be smaller than 1")
 async function start()
 {
 console.log("Scanning...")
