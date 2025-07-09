@@ -3,24 +3,25 @@ import * as fs from 'fs/promises'
 import * as path from 'path'
 var timer=parseInt(process.env.INTERVAL_SEC);
 if(timer>1)
-    setInterval(start,timer*1000)
+    setTimeout(start,timer*1000)
 else
     console.error("Can't have INTERVAL_SEC be smaller than 1")
 async function start()
 {
-console.log("Scanning...")
-var series=await getJsonData("series") as any[];
-var finished=series.filter(serie=>serie.status.toLowerCase() === 'ended' && serie.statistics.episodeCount === serie.statistics.episodeFileCount)
-console.log("Scan complete!")
-finished.forEach(async serie=>{
-    console.log("Started moving: "+serie.path)
-    var name=path.basename(serie.path);
-    if(await moveDirectory(path.join(process.env.ORIGINE_DIR,name),path.join(process.env.DESTINATION_DIR,name)))
+    console.log("Scanning...")
+    var series=await getJsonData("series") as any[];
+    var finished=series.filter(serie=>serie.status.toLowerCase() === 'ended' && serie.statistics.episodeCount === serie.statistics.episodeFileCount)
+    console.log("Scan complete!")
+    for(var serie of finished)
     {
-        untrackSeries(serie.id)
+    console.log("Started moving: "+serie.path)
+        var name=path.basename(serie.path);
+        if(await moveDirectory(path.join(process.env.ORIGINE_DIR,name),path.join(process.env.DESTINATION_DIR,name)))
+        {
+            untrackSeries(serie.id)
+        }
     }
-})
-
+    setTimeout(start,timer*1000);
 }
 async function getJsonData(endpoint:string)
 {
