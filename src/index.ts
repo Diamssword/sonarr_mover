@@ -2,7 +2,7 @@ import 'dotenv/config'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-setInterval(start,parseInt(process.env.INTERVAL_SEC))
+setInterval(start,parseInt(process.env.INTERVAL_SEC)*1000)
 async function start()
 {
 console.log("Scanning...")
