@@ -4,8 +4,17 @@
   "description": "Auto move sonarr completed series to another disk",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build&Run":"npx tsc && node dist/index.js",
+    "build": "npx tsc",
+    "run": "node dist/index.js"
   },
   "author": "Diamssword",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.1.0"
+  }
 }
