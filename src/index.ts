@@ -67,8 +67,18 @@ async function moveDirectory(sourcePath: string, destPath: string): Promise<bool
         // Appel récursif pour les sous-dossiers
         await moveDirectory(sourceItemPath, destItemPath);
       } else {
+        try{
         // Déplacement des fichiers
         await fs.rename(sourceItemPath, destItemPath);
+        }catch (err: any) {
+            if (err.code === 'EXDEV') {
+            // Cas de cross-device: copie + suppression
+                await fs.copyFile(sourceItemPath,destItemPath)
+                await fs.rm(sourceItemPath);
+            } else {
+            throw err;
+            }
+        }
       }
     }
 
