@@ -1,0 +1,11 @@
+{
+  "name": "sonarr_mover",
+  "version": "1.0.0",
+  "description": "Auto move sonarr completed series to another disk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Diamssword",
+  "license": "ISC"
+}
