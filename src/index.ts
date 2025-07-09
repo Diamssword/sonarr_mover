@@ -2,11 +2,13 @@ import 'dotenv/config'
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-start();
+setInterval(start,parseInt(process.env.INTERVAL_SEC))
 async function start()
 {
+console.log("Scanning...")
 var series=await getJsonData("series") as any[];
 var finished=series.filter(serie=>serie.status.toLowerCase() === 'ended' && serie.statistics.episodeCount === serie.statistics.episodeFileCount)
+console.log("Scan complete!")
 finished.forEach(async serie=>{
     console.log("Started moving: "+serie.path)
     var name=path.basename(serie.path);
